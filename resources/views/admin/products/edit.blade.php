@@ -4,14 +4,15 @@
 
         <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
+            @method('patch')
 
             <div class="mb-3">
                 <label>Category</label>
                 <select name="category_id" class="form-control">
+                    {{-- @dump($categories) --}}
                     @foreach($categories as $cat)
                         <option value="{{ $cat->id }}" {{ ($product->category_id ?? old('category_id')) == $cat->id ? 'selected' : '' }}>
-                            {{ $cat->name }}
+                            {{ $cat->title }}
                         </option>
                     @endforeach
                 </select>
@@ -25,6 +26,14 @@
             <div class="mb-3">
                 <label>Description</label>
                 <textarea name="description" class="form-control">{{ old('description', $product->description) }}</textarea>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" 
+                    name="is_top" 
+                    class="form-check-input" 
+                    value="1"
+                    {{ old('is_top', $product->is_top ?? false) ? 'checked' : '' }}>
+                <label class="form-check-label">Топ товар</label>
             </div>
 
             <div class="mb-3">
@@ -43,13 +52,37 @@
             </div>
 
             <div class="mb-3">
-                <label>Main Image</label>
-                @if($product->getMainImageUrl())
-                    <div>
-                        <img src="{{ $product->getMainImageUrl() }}" width="150" alt="Main Image">
+                <label class="form-label">Main Image</label>
+
+                @if($product->getFirstMediaUrl('main'))
+                    <div class="mb-2">
+                        <img src="{{ $product->getFirstMediaUrl('main') }}" 
+                            alt="Main Image" 
+                            style="max-width:150px">
                     </div>
                 @endif
+
                 <input type="file" name="main_image" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Gallery</label>
+
+                @if($product->hasMedia('gallery'))
+                    <div class="d-flex gap-2 mb-2 flex-wrap">
+                        @foreach($product->getMedia('gallery') as $image)
+                            <img src="{{ $image->getUrl() }}" width="80">
+                        @endforeach
+                    </div>
+                @endif
+
+                <input 
+                    type="file" 
+                    name="gallery[]" 
+                    class="form-control" 
+                    multiple
+                    accept="image/*"
+                >
             </div>
 
             <h4>Attributes</h4>

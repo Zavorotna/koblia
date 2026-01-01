@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Site\SiteProductController;
 use App\Http\Controllers\Admin\AttributeValueController;
-use App\Http\Controllers\Admin\ProductController;
 
 Route::get('/admin', function () {
     return to_route('login');
@@ -58,6 +59,13 @@ Route::middleware('auth')->group(function () {
         Route::patch('/products/update/{product}', 'update')->name('admin.products.update');
         Route::delete('/products/destroy/{product}', 'destroy')->name('admin.products.destroy');
     });
+});
+
+
+Route::controller(SiteProductController::class)->group(function() {
+    Route::get('/', 'index')->name('site.index');
+    Route::get('/catalogue', 'catalogue')->name('site.catalogue');
+    Route::get('/product/{id}', 'product')->name('site.product');
 });
 
 require __DIR__.'/auth.php';

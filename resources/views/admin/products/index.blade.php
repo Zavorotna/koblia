@@ -22,12 +22,12 @@
                 <tr>
                     <td>{{ $product->id }}</td>
                     <td>
-                        @if($product->getMainImageUrl())
-                            <img src="{{ $product->getMainImageUrl() }}" width="50" alt="Image">
+                        @if($product->getFirstMediaUrl('main'))
+                            <img src="{{ $product->getFirstMediaUrl('main') }}" width="50" alt="Image">
                         @endif
                     </td>
                     <td>{{ $product->title }}</td>
-                    <td>{{ $product->category->name }}</td>
+                    <td>{{ $product->category->title }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->saleprice }}</td>
                     <td>{{ $product->discount }}%</td>

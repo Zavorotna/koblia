@@ -1,0 +1,71 @@
+@import components/mixin;
+* 
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    
+html
+    font-size: 0.8px
+    +media(1024)
+        font-size: 0.9px
+    +media(1440)
+        font-size: 1px
+    +media(2200)
+        font-size: 1.2px
+body
+    font-family: Montserrat
+    font-size: 20rem
+    font-weight: 400
+    background: #050505
+    color: #fff
+header
+    padding: 16rem 0
+.wrapper
+    width: 90%
+    max-width: 1719rem
+    margin: 0 auto
+.flex-between
+    display: flex
+    justify-content: space-between
+
+.items_center
+    align-items: center
+
+.gap_10
+    gap: 10rem
+
+.gap_20
+    gap: 20rem
+
+.gap_30
+    gap: 30rem
+
+.gap_40
+    gap: 40rem
+
+.gap_50
+    gap: 30rem
+    +media(1920)
+        gap: 50rem
+.gap_150
+    gap: 150rem
+.grid
+    display: grid
+
+.col_3
+    grid-template-columns: 2fr 1fr 1fr
+
+.header_nav,
+.nav_list
+    flex: 1
+
+.header_nav,
+.phone_header
+    a
+        font-size: 14rem
+        text-transform: uppercase
+        +media(1920)
+            font-size: 16rem
+.logo
+    flex-shrink: 0
+    max-width: 50rem

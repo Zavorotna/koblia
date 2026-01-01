@@ -22,15 +22,17 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'required|exists:categories,id',
-            'title'       => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price'       => 'required|numeric|min:0',
-            'saleprice'   => 'nullable|numeric|min:0',
-            'discount'    => 'nullable|integer|min:0|max:100',
-            'attributes'  => 'nullable|array',
-            'attributes.*'=> 'nullable|exists:attribute_values,id',
-            'main_image'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'category_id' => ['required', 'exists:categories,id'],
+            'title' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
+            'price' => ['nullable', 'numeric'],
+            'saleprice' => ['nullable', 'numeric'],
+            'discount' => ['nullable', 'integer'],
+            'main_image' => ['nullable', 'image'],
+            'gallery' => ['nullable', 'array'],
+            'gallery.*' => ['image'],
+            'attributes' => 'nullable|array',
+            'attributes.*' => 'nullable|exists:attribute_values,id', 
         ];
     }
 }

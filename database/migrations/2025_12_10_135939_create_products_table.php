@@ -16,9 +16,10 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories', 'id')->cascadeOnDelete();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->double('price');
-            $table->double('saleprice')->index();
+            $table->decimal('price', 10, 2)->nullable();
+            $table->decimal('saleprice', 10, 2)->nullable();
             $table->integer('discount')->default(0);
+            $table->boolean('is_top')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

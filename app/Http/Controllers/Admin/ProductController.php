@@ -16,9 +16,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category', 'attributes')->paginate(20);
+        $products = Product::with('category', 'attributes')
+            ->latest()
+            ->paginate(20);
+
         return view('admin.products.index', compact('products'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -33,19 +37,25 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $data = $request->validated();
+        $data['is_top'] = $request->has('is_top');
         $attributes = $data['attributes'] ?? [];
         unset($data['attributes'], $data['main_image']);
 
+        $attributes = $request->input('attributes', []);
+        
         $product = Product::createProduct($data, $attributes);
-
         if ($request->hasFile('main_image')) {
-            $product->addMainImage($request->file('main_image'));
+            $product->addMedia($request->file('main_image'))
+                ->toMediaCollection('main');
+        }
+        if ($request->hasFile('gallery')) {
+            $product->addGalleryImages($request->file('gallery'));
         }
 
-        return to_route('admin.products.index');
+        return to_route('products.index');
     }
 
     /**
@@ -64,16 +74,21 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         $data = $request->validated();
+        $data['is_top'] = $request->has('is_top');
         $attributes = $data['attributes'] ?? [];
         unset($data['attributes'], $data['main_image']);
 
         $product->updateProduct($data, $attributes);
-
         if ($request->hasFile('main_image')) {
-            $product->addMainImage($request->file('main_image'));
+            $product->clearMediaCollection('main');
+            $product->addMedia($request->file('main_image'))
+                ->toMediaCollection('main');
+        }
+        if ($request->hasFile('gallery')) {
+            $product->addGalleryImages($request->file('gallery'));
         }
 
-        return to_route('admin.products.index');
+        return to_route('products.index');
     }
 
     /**
@@ -82,6 +97,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return to_route('admin.products.index');
+        return to_route('products.index');
     }
 }
