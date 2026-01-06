@@ -1,4 +1,4 @@
-<div class="footer">
+<div class="footer b_top">
     <div class="wrapper flex-between">
         <nav class="footer_nav">
             <ul class="flex items_center gap_40">
@@ -17,7 +17,7 @@
                 </svg>
                 +38 (067) 380 93 60
             </a>
-            <a href="{{route('privacy')}}">Політика конфіденційності</a>
+            <a href="{{route('site.privacy')}}">Політика конфіденційності</a>
         </div>
     </div>
     <p class="tac copy"><span class="span_text">&copy</span> 2025. Koblia Vino</p>

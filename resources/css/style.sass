@@ -7,6 +7,7 @@
     font-family: Montserrat
     
 html
+    scroll-behavior: smooth
     font-size: 0.75px
     +media(1024)
         font-size: 0.8px
@@ -34,7 +35,7 @@ h2
     text-transform: uppercase
     +media(1920)
         font-size: 48rem
-
+.header
 .wrapper
     width: 90%
     max-width: 1719rem
@@ -81,7 +82,36 @@ h2
 .footer_nav,
 .contacts_footer
     flex: 1
-
+.burger 
+    +media(1024)
+        display: none
+.header_nav
+    position: fixed
+    top: 0
+    left: -100%
+    background: #000
+    width: 80%
+    height: 100vh
+    z-index: 20
+    transition: .5s
+    +media(1024)
+        position: static
+        background: transparent
+        height: auto
+        width: auto
+    > ul
+        padding: 50rem 0
+        a
+            display: block
+            padding: 10rem 15rem
+            font-size: 20rem
+            +media(1024)
+                font-size: 16rem
+                padding: 0
+        +media(1024)
+            padding: 0
+            display: flex
+            justify-content: space-between
 .header_nav,
 .phone_header,
 .footer_nav
@@ -91,6 +121,45 @@ h2
         text-transform: uppercase
         +media(1920)
             font-size: 16rem
+.cancel_burger
+    position: absolute
+    top: 10px
+    right: 10px
+
+.black_fon
+    display: none
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100vh
+    background: rgba(0, 0, 0, 0.4)
+    backdrop-filter: blur(5px)
+    z-index: 10
+
+
+.phone_header,
+.nav_list
+    display: none
+    +media(768)
+        display: flex
+
+.phone_mobile
+    display: block
+    padding: 50rem 15rem
+    +media(1024)
+        padding-top: 0
+    a
+        justify-content: center
+        +media(1024)
+            justify-content: space-between
+    +media(1024)
+        display: none
+.nav_list_mobile
+    +media(1024)
+        display: none
+    ul
+        justify-content: center
 .logo
     max-width: 50rem
 
@@ -160,7 +229,8 @@ h2
     text-transform: uppercase
     +media(768)
         max-width: 270rem
-.fill_btn
+.fill_btn,
+.active
     color: #050505
     background: #E4AB72
     &:hover
@@ -425,3 +495,61 @@ h2
 .copy
     padding: 17rem 0
     font-size: 14rem
+
+
+//card
+.wrapper_card
+    padding: 50rem 0
+    min-height: 65vh
+    +media(1250)
+        max-width: 1143rem
+
+.col_2_card
+    +media(768)
+        grid-template-columns: repeat(2, 1fr)
+
+.product_card
+    h1
+        padding-bottom: 20rem
+        color: #E4AB72
+        font-size: 24rem
+        text-transform: uppercase
+    img
+        background: #fff
+        width: 100%
+        object-fit: cover
+        max-width: 530rem
+        max-height: 600rem
+    .type_vine
+        color: #FFF
+        font-size: 20rem
+        font-weight: 400
+.wine_attributes
+    padding: 50rem 0 30rem
+    font-size: 16rem
+    p
+        padding-bottom: 20rem
+        font-weight: 400
+    .span_text
+        font-weight: 600
+.haracteristic_vine
+    font-size: 16rem
+    p
+        padding-bottom: 20rem
+    b
+        font-weight: 600
+
+.catalogue
+    padding: 50rem 0
+    h1
+        padding-bottom: 30rem
+        color: #E4AB72
+        font-size: 48rem
+        text-transform: uppercase
+
+.btn_catalogue
+    padding-bottom: 30rem
+
+.privacy
+    p
+        padding-bottom: 20rem

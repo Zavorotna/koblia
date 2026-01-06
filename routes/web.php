@@ -72,7 +72,7 @@ Route::controller(SiteProductController::class)->group(function() {
 Route::controller(OrderController::class)->group(function(){
         Route::post('/orderStore', 'store')->name('site.orderStore');
     });
-
-Route::view('/privacy', 'privacy')->name('privacy');
+    
+Route::view('/privacy', 'site.privacy')->name('site.privacy');
 
 require __DIR__.'/auth.php';

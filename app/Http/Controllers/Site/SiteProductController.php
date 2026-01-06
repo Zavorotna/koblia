@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SiteProductController extends Controller
 {
@@ -25,4 +26,18 @@ class SiteProductController extends Controller
         
         return view('site.product', compact('product', 'attributes'));
     }
+
+    public function catalogue(Request $request)
+    {
+        $categoryId = $request->get('category');
+        $categories = Category::all();
+        $products = Product::getCatalogueProducts($categoryId);
+
+        if ($request->ajax()) {
+            return view('components.catalogue_page', compact('products'))->render();
+        }
+
+        return view('site.catalogue', compact('products', 'categories', 'categoryId'));
+    }
+
 }

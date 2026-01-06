@@ -64,10 +64,7 @@
                 <div class="mb-3">
                     <label>{{ $attribute->name }}</label>
 
-                    @if($attribute->type === 'text')
-                        <input type="text" name="attributes[{{ $attribute->id }}]" class="form-control"
-                            value="{{ $selectedValues[0] ?? '' }}">
-                    @elseif($attribute->type === 'select')
+                    @if($attribute->type === 'text' || $attribute->type === 'select')
                         <select name="attributes[{{ $attribute->id }}]" class="form-control">
                             <option value="">-- Select --</option>
                             @foreach($attribute->values as $value)

@@ -1,4 +1,4 @@
-<section class="contacts_container b_bottom">
+<section class="contacts_container b_bottom" id="contacts">
     <div class="wrapper grid col_2">
         <div class="direction_center items_center b_right">
             <h2>наші контакти</h2>

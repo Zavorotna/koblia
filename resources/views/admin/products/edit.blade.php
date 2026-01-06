@@ -79,10 +79,7 @@
                 <div class="mb-3">
                     <label>{{ $attribute->name }}</label>
 
-                    @if($attribute->type === 'text')
-                        <input type="text" name="attributes[{{ $attribute->id }}]" class="form-control"
-                            value="{{ old('attributes.'.$attribute->id, $selectedValues[0] ?? '') }}">
-                    @elseif($attribute->type === 'select')
+                    @if($attribute->type === 'text' || $attribute->type === 'select')
                         <select name="attributes[{{ $attribute->id }}]" class="form-control">
                             <option value="">-- Select --</option>
                             @foreach($attribute->values as $value)
@@ -93,19 +90,19 @@
                         </select>
                     @elseif($attribute->type === 'multiselect')
                         <div class="d-flex flex-wrap gap-2">
-                @foreach($attribute->values as $value)
-                    <div class="form-check">
-                            <input 
-                                type="checkbox" 
-                                name="attributes[{{ $attribute->id }}][]" 
-                                value="{{ $value->id }}" 
-                                class="form-check-input"
-                                {{ in_array($value->id, (array)$selectedValues) ? 'checked' : '' }}
-                            >
-                            <label class="form-check-label">{{ $value->value }}</label>
+                        @foreach($attribute->values as $value)
+                            <div class="form-check">
+                                    <input 
+                                        type="checkbox" 
+                                        name="attributes[{{ $attribute->id }}][]" 
+                                        value="{{ $value->id }}" 
+                                        class="form-check-input"
+                                        {{ in_array($value->id, (array)$selectedValues) ? 'checked' : '' }}
+                                    >
+                                    <label class="form-check-label">{{ $value->value }}</label>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
                     @endif
                 </div>
             @endforeach

@@ -1,4 +1,78 @@
 document.addEventListener("DOMContentLoaded", () => {
+    if(document.querySelector(".burger")) {
+        const burger = document.querySelector(".burger a"),
+            cancel = document.querySelector(".cancel_burger"),
+            blackFon = document.querySelector(".black_fon"),
+            nav = document.querySelector(".header_nav")
+
+        function cancelBurger(e) {
+            e.preventDefault()
+            blackFon.style.display = "none"
+            nav.style.left = '-100%'
+        }
+
+        burger.addEventListener("click", () => {
+            blackFon.style.display = "block"
+            nav.style.left = '0'
+        })
+
+        // nav.querySelectorAll('ul li').forEach(item => {
+        //     item.addEventListener("click", cancelBurger)
+        // })
+
+        cancel.addEventListener("click", (e) => {
+            e.preventDefault()
+            cancelBurger()
+        })
+        blackFon.addEventListener("click", (e) => {
+            e.preventDefault()
+            cancelBurger()
+        })
+        
+    }
+
+    if (document.querySelector(".catalogue_container")) {
+        document.addEventListener('click', function (e) {
+            const link = e.target.closest('.filter-link')
+            if (!link) return
+
+            e.preventDefault()
+
+            const categoryId = link.dataset.category ?? '',
+                container = document.querySelector('.catalogue_container')
+
+            document.querySelectorAll('.filter-link')
+                .forEach(el => el.classList.remove('active'))
+            link.classList.add('active')
+
+            if (categoryId) {
+                history.pushState({}, '', `?category=${categoryId}`)
+            } else {
+                history.pushState({}, '', location.pathname)
+            }
+
+            fetch(link.href, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(res => res.text())
+            .then(html => {
+                // console.log(html);
+                container.innerHTML = html
+            })
+            .catch(err => console.error(err))
+        })
+    }
+
+    if (document.querySelector('video')) {
+        const video = document.querySelector('video');
+
+        function playVideo() {
+            video.play();
+            document.removeEventListener('click', playVideo);
+        }
+        document.addEventListener('click', playVideo);
+    }
+
     if (document.querySelector(".form_order")) {
         const form = document.querySelector(".form_order"),
             phoneInput = form.querySelector("input[name='userPhone']"),

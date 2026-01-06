@@ -43,7 +43,7 @@
                 </div>
             </div>
         </section>
-        <section class="adout_us_container b_bottom b_top">
+        <section class="adout_us_container b_bottom b_top" id="about">
             <div class="wrapper grid col_2">
                 <div class="about_img_block grid">
                     <picture>
@@ -74,6 +74,13 @@
                 <p>Саме тоді зародилася <span class="span_text">філософія Koblia Vino</span> — філософія чистоти, простоти та поваги до природи, яка не змінилась і сьогодні.</p>
                 <p>Назва Koblia — це частина родинного прізвища. Це підпис, відповідальність і чесність, вкладені у кожну пляшку. Кожен ковток — результат ручної праці, досвіду й любові, які передаються від року до року.</p>
                 <p>Вино залишається крафтовим та унікальним, створеним так само, як і в перший день — з увагою, акуратністю та повагою до традицій.</p>
+            </div>
+        </section>
+        <section class="video_container b_bottom">
+            <div class="wrapper">
+                <video loading="lazy" preload="none" autoplay loop muted playsinline>
+                    <source src="{{asset('/video/video.mp4')}}">
+                </video>
             </div>
         </section>
         <section class="information_koblia_container">
@@ -155,7 +162,7 @@
             </div>
         </section>
         @include('components.top_product')
-        <section class="order b_bottom">
+        <section class="order b_bottom" id="cooperation">
             <div class="wrapper">
                 <h2>співраця</h2>
                 <p class="tac">Як виробники крафтового вина, ми створюємо продукцію з характером, історією та незмінною увагою до деталей. Працюємо з HoReCa, гуртовими покупцями, приватними сомельє та винними просторами.</p>

@@ -130,4 +130,18 @@ class Product extends Model implements HasMedia
         return $product;
     }
 
+   public static function getCatalogueProducts($categoryId = null)
+    {
+        return self::with([
+            'media',
+            'category',
+            'attributeValues' => function ($q) {
+                $q->whereIn('product_attribute_values.attribute_id', [13, 21])
+                ->with('attribute');
+            }
+        ])
+        ->when($categoryId, fn ($q) => $q->where('category_id', $categoryId))
+        ->latest('id')
+        ->get();
+    }
 }
