@@ -9,9 +9,8 @@
             <div class="mb-3">
                 <label>Category</label>
                 <select name="category_id" class="form-control">
-                    {{-- @dump($categories) --}}
                     @foreach($categories as $cat)
-                        <option value="{{ $cat->id }}" {{ ($product->category_id ?? old('category_id')) == $cat->id ? 'selected' : '' }}>
+                        <option value="{{ $cat->id }}" {{ old('category_id', $product->category_id) == $cat->id ? 'selected' : '' }}>
                             {{ $cat->title }}
                         </option>
                     @endforeach
@@ -27,12 +26,10 @@
                 <label>Description</label>
                 <textarea name="description" class="form-control">{{ old('description', $product->description) }}</textarea>
             </div>
+
             <div class="mb-3 form-check">
-                <input type="checkbox" 
-                    name="is_top" 
-                    class="form-check-input" 
-                    value="1"
-                    {{ old('is_top', $product->is_top ?? false) ? 'checked' : '' }}>
+                <input type="checkbox" name="is_top" class="form-check-input" value="1"
+                    {{ old('is_top', $product->is_top) ? 'checked' : '' }}>
                 <label class="form-check-label">Топ товар</label>
             </div>
 
@@ -52,22 +49,17 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Main Image</label>
-
+                <label>Main Image</label>
                 @if($product->getFirstMediaUrl('main'))
                     <div class="mb-2">
-                        <img src="{{ $product->getFirstMediaUrl('main') }}" 
-                            alt="Main Image" 
-                            style="max-width:150px">
+                        <img src="{{ $product->getFirstMediaUrl('main') }}" alt="Main Image" style="max-width:150px">
                     </div>
                 @endif
-
                 <input type="file" name="main_image" class="form-control">
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Gallery</label>
-
+                <label>Gallery</label>
                 @if($product->hasMedia('gallery'))
                     <div class="d-flex gap-2 mb-2 flex-wrap">
                         @foreach($product->getMedia('gallery') as $image)
@@ -75,32 +67,46 @@
                         @endforeach
                     </div>
                 @endif
-
-                <input 
-                    type="file" 
-                    name="gallery[]" 
-                    class="form-control" 
-                    multiple
-                    accept="image/*"
-                >
+                <input type="file" name="gallery[]" class="form-control" multiple accept="image/*">
             </div>
 
             <h4>Attributes</h4>
             @foreach($attributes as $attribute)
-                <div class="mb-2">
+                @php
+                    $selectedValues = old('attributes.'.$attribute->id) 
+                        ?? $product->attributeValues->where('pivot.attribute_id', $attribute->id)->pluck('id')->toArray();
+                @endphp
+                <div class="mb-3">
                     <label>{{ $attribute->name }}</label>
-                    <select name="attributes[{{ $attribute->id }}]" class="form-control">
-                        <option value="">-- Select value --</option>
-                        @foreach($attribute->values as $value)
-                            @php
-                                $selected = old('attributes.'.$attribute->id) 
-                                    ?? $product->attributes->firstWhere('pivot.attribute_id', $attribute->id)->id ?? '';
-                            @endphp
-                            <option value="{{ $value->id }}" {{ $selected == $value->id ? 'selected' : '' }}>
-                                {{ $value->value }}
-                            </option>
-                        @endforeach
-                    </select>
+
+                    @if($attribute->type === 'text')
+                        <input type="text" name="attributes[{{ $attribute->id }}]" class="form-control"
+                            value="{{ old('attributes.'.$attribute->id, $selectedValues[0] ?? '') }}">
+                    @elseif($attribute->type === 'select')
+                        <select name="attributes[{{ $attribute->id }}]" class="form-control">
+                            <option value="">-- Select --</option>
+                            @foreach($attribute->values as $value)
+                                <option value="{{ $value->id }}" {{ in_array($value->id, (array)$selectedValues) ? 'selected' : '' }}>
+                                    {{ $value->value }}
+                                </option>
+                            @endforeach
+                        </select>
+                    @elseif($attribute->type === 'multiselect')
+                        <div class="d-flex flex-wrap gap-2">
+                @foreach($attribute->values as $value)
+                    <div class="form-check">
+                            <input 
+                                type="checkbox" 
+                                name="attributes[{{ $attribute->id }}][]" 
+                                value="{{ $value->id }}" 
+                                class="form-check-input"
+                                {{ in_array($value->id, (array)$selectedValues) ? 'checked' : '' }}
+                            >
+                            <label class="form-check-label">{{ $value->value }}</label>
+                        </div>
+                    @endforeach
+                </div>
+                    @endif
                 </div>
             @endforeach
 

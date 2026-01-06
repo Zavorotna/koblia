@@ -47,13 +47,29 @@ class ProductController extends Controller
         $attributes = $request->input('attributes', []);
         
         $product = Product::createProduct($data, $attributes);
+
         if ($request->hasFile('main_image')) {
-            $product->addMedia($request->file('main_image'))
+            $file = $request->file('main_image');
+            $product->clearMediaCollection('main');
+            $product->addMedia($file)
+                ->usingFileName($file->getClientOriginalName())
+                ->withCustomProperties([
+                    'alt' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) // ім’я файлу без розширення
+                ])
                 ->toMediaCollection('main');
         }
+
         if ($request->hasFile('gallery')) {
-            $product->addGalleryImages($request->file('gallery'));
+            foreach ($request->file('gallery') as $file) {
+                $product->addMedia($file)
+                    ->usingFileName($file->getClientOriginalName())
+                    ->withCustomProperties([
+                        'alt' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
+                    ])
+                    ->toMediaCollection('gallery');
+            }
         }
+
 
         return to_route('products.index');
     }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -67,5 +68,11 @@ Route::controller(SiteProductController::class)->group(function() {
     Route::get('/catalogue', 'catalogue')->name('site.catalogue');
     Route::get('/product/{id}', 'product')->name('site.product');
 });
+
+Route::controller(OrderController::class)->group(function(){
+        Route::post('/orderStore', 'store')->name('site.orderStore');
+    });
+
+Route::view('/privacy', 'privacy')->name('privacy');
 
 require __DIR__.'/auth.php';

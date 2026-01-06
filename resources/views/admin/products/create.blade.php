@@ -25,14 +25,12 @@
                 <label>Description</label>
                 <textarea name="description" class="form-control">{{ old('description') }}</textarea>
             </div>
+
             <div class="mb-3 form-check">
-                <input type="checkbox" 
-                    name="is_top" 
-                    class="form-check-input" 
-                    value="1"
-                    {{ old('is_top', $product->is_top ?? false) ? 'checked' : '' }}>
+                <input type="checkbox" name="is_top" class="form-check-input" value="1" {{ old('is_top') ? 'checked' : '' }}>
                 <label class="form-check-label">Топ товар</label>
             </div>
+
             <div class="mb-3">
                 <label>Price</label>
                 <input type="number" name="price" class="form-control" step="0.01" value="{{ old('price') }}">
@@ -49,31 +47,51 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Main Image</label>
+                <label>Main Image</label>
                 <input type="file" name="main_image" class="form-control">
             </div>
+
             <div class="mb-3">
-                <label class="form-label">Gallery</label>
-                <input 
-                    type="file" 
-                    name="gallery[]" 
-                    class="form-control" 
-                    multiple
-                    accept="image/*"
-                >
+                <label>Gallery</label>
+                <input type="file" name="gallery[]" class="form-control" multiple accept="image/*">
             </div>
+
             <h4>Attributes</h4>
             @foreach($attributes as $attribute)
-                <div class="mb-2">
+                @php
+                    $selectedValues = old('attributes.'.$attribute->id, []);
+                @endphp
+                <div class="mb-3">
                     <label>{{ $attribute->name }}</label>
-                    <select name="attributes[{{ $attribute->id }}]" class="form-control">
-                        <option value="">-- Select value --</option>
+
+                    @if($attribute->type === 'text')
+                        <input type="text" name="attributes[{{ $attribute->id }}]" class="form-control"
+                            value="{{ $selectedValues[0] ?? '' }}">
+                    @elseif($attribute->type === 'select')
+                        <select name="attributes[{{ $attribute->id }}]" class="form-control">
+                            <option value="">-- Select --</option>
+                            @foreach($attribute->values as $value)
+                                <option value="{{ $value->id }}" {{ in_array($value->id, (array)$selectedValues) ? 'selected' : '' }}>
+                                    {{ $value->value }}
+                                </option>
+                            @endforeach
+                        </select>
+                    @elseif($attribute->type === 'multiselect')
+                        <div class="d-flex flex-wrap gap-2">
                         @foreach($attribute->values as $value)
-                            <option value="{{ $value->id }}" {{ old('attributes.'.$attribute->id) == $value->id ? 'selected' : '' }}>
-                                {{ $value->value }}
-                            </option>
+                            <div class="form-check">
+                                <input 
+                                    type="checkbox" 
+                                    name="attributes[{{ $attribute->id }}][]" 
+                                    value="{{ $value->id }}" 
+                                    class="form-check-input"
+                                    {{ in_array($value->id, (array)$selectedValues) ? 'checked' : '' }}
+                                >
+                                <label class="form-check-label">{{ $value->value }}</label>
+                            </div>
                         @endforeach
-                    </select>
+                    </div>
+                    @endif
                 </div>
             @endforeach
 

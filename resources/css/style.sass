@@ -1,29 +1,48 @@
-@import components/mixin;
+@use 'components/mixin' as *
+
 * 
     margin: 0
     padding: 0
     box-sizing: border-box
+    font-family: Montserrat
     
 html
-    font-size: 0.8px
+    font-size: 0.75px
     +media(1024)
-        font-size: 0.9px
+        font-size: 0.8px
     +media(1440)
         font-size: 1px
     +media(2200)
-        font-size: 1.2px
+        font-size: 1.1px
+
 body
-    font-family: Montserrat
     font-size: 20rem
     font-weight: 400
+    line-height: normal
     background: #050505
     color: #fff
+
 header
     padding: 16rem 0
+    border-bottom: 1px solid #5E5E5E
+
+h2
+    color: #E4AB72
+    font-size: 38rem
+    text-align: center
+    padding-bottom: 40rem
+    text-transform: uppercase
+    +media(1920)
+        font-size: 48rem
+
 .wrapper
     width: 90%
     max-width: 1719rem
     margin: 0 auto
+
+.flex
+    display: flex
+
 .flex-between
     display: flex
     justify-content: space-between
@@ -47,8 +66,10 @@ header
     gap: 30rem
     +media(1920)
         gap: 50rem
+
 .gap_150
     gap: 150rem
+
 .grid
     display: grid
 
@@ -56,16 +77,351 @@ header
     grid-template-columns: 2fr 1fr 1fr
 
 .header_nav,
-.nav_list
+.nav_list,
+.footer_nav,
+.contacts_footer
     flex: 1
 
 .header_nav,
-.phone_header
+.phone_header,
+.footer_nav
     a
         font-size: 14rem
+        font-weight: 500
         text-transform: uppercase
         +media(1920)
             font-size: 16rem
 .logo
-    flex-shrink: 0
     max-width: 50rem
+
+.logo,
+.social_footer
+    flex-shrink: 0
+.pos_r
+    position: relative
+.b_top
+    border-top: 1px solid #5E5E5E
+.b_bottom
+    border-bottom: 1px solid #5E5E5E
+.b_right
+    border-right: 1px solid #5E5E5E
+.b_left
+    border-left: 1px solid #5E5E5E
+
+.main_container
+    picture
+        display: inline-block
+        position: absolute
+        top: 0
+        right: 0
+        width: 50%
+        height: 100%
+        img
+            width: 100%
+            height: 100%
+            object-fit: cover
+.main_text 
+    display: flex
+    flex-direction: column
+    justify-content: center
+    min-height: 60vh
+    padding-right: 50rem
+    +media(768)
+        max-width: 50%
+    h1
+        font-family: "Cinzel Decorative"
+        font-size: 65rem
+        line-height: 1.2em
+        font-weight: 400
+        +media(1250)
+            font-size: 82rem
+        +media(1920)
+            font-size: 110rem
+    p
+        padding: 20rem 0
+        font-size: 30rem
+        font-weight: 400
+        +media(768)
+            padding: 0 0 70rem
+.btn_container
+    flex-wrap: wrap
+    +media(1250)
+        flex-wrap: nowrap
+
+.cta
+    display: inline-block
+    text-align: center
+    width: 100%
+    min-width: 270rem
+    padding: 15rem 20rem
+    font-size: 20rem
+    font-weight: 500
+    transition: .5s
+    text-transform: uppercase
+    +media(768)
+        max-width: 270rem
+.fill_btn
+    color: #050505
+    background: #E4AB72
+    &:hover
+        background: #9D5F22
+
+.transparent_btn
+    border: 1px solid #E4AB72
+    &:hover
+        color: #050505
+        background: #E4AB72
+
+.advantages_container
+    margin-bottom: 50rem
+    +media(1440)
+        margin-bottom: 100rem
+    picture
+        display: block
+        img
+            width: 100%
+            object-fit: cover
+            border-right: 1px solid #5E5E5E
+            border-left: 1px solid #5E5E5E
+.adv_col_6
+    grid-template-columns: repeat(6, 1fr)
+
+.adv_block
+    display: flex
+    align-items: center
+    justify-content: center
+    p
+        color: #E4AB72
+        font-size: 24rem
+        text-transform: uppercase
+.col_2
+    grid-template-columns: repeat(2, 1fr)
+
+.about_img_block
+    grid-template-columns: 2fr 1fr
+    picture
+        display: block
+        height: 100%
+        &:first-child
+            grid-row: span 2
+        img
+            height: 100%
+            width: 100%
+            object-fit: cover
+.direction_center
+    display: flex
+    flex-direction: column
+    justify-content: center
+    p
+        margin-bottom: 10rem
+.about_us_text,
+.degustation_text
+    padding: 0 0 0 30rem
+    +media(1920)
+        padding: 0 0 0 50rem
+.span_text
+    color: #E4AB72
+
+.history_container
+    div
+        padding: 70rem 0
+    p
+        margin-bottom: 10rem
+
+.tac
+    text-align: center
+
+.information_koblia_container
+    img
+        max-height: 599rem  
+        width: 100%
+        object-fit: cover
+        object-position: 75% 75%
+
+.list_info
+    .span_text
+        padding-top: 30rem
+    ul
+        list-style: inside
+.philosophi_text,
+.colab_text
+    padding: 0 20rem
+    +media(1920)
+        padding: 0 30rem
+    +media(2200)
+        padding: 0 50rem
+
+.colab_block
+    min-height: 599rem
+    background: url(../../public/img/bg_blur.jpg) no-repeat center/cover
+    h2
+        padding-bottom: 0
+    p
+        margin-bottom: 0
+        max-width: 55%
+
+.events_container
+    min-height: 75vh
+    padding: 100rem 0 30rem
+    div
+        max-width: 830rem
+        div
+            padding: 8rem
+            p
+                padding: 20rem 0
+.top_product
+    padding: 70rem 0
+    .wrapper
+        > div
+            padding-bottom: 50rem
+
+.col_4
+    grid-template-columns: repeat(2, 1fr)
+    +media(768)
+        grid-template-columns: repeat(4, 1fr)
+
+.card
+    figcaption
+        height: 100%
+    a
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        &:hover
+            ~ .card_block
+                border-color: #E4AB72
+                h3
+                    color: #E4AB72
+
+.card_block           
+    height: 100%
+    padding: 10rem 10rem 20rem
+    border: 1px solid #5E5E5E
+    transition: .5s
+    picture
+        display: block
+        width: 100%
+        height: 247rem
+        background-color: #fff
+        +media(1250)
+            height: 447rem
+        img
+            width: 100%
+            height: 100%
+            object-fit: contain
+            object-position: center
+    h3
+        padding: 10rem 0 5rem
+    h3,
+    .price
+        font-size: 24rem
+        text-transform: uppercase
+        transition: .5s
+
+.type_vine
+    padding-bottom: 10rem
+    color: #5E5E5E
+    font-size: 18rem
+    font-weight: 400
+    text-transform: lowercase
+
+.justify_center
+    justify-content: center
+
+.order
+    padding: 70rem 0
+    p
+        margin: 0 auto
+        max-width: 1351rem
+        margin-bottom: 10rem
+
+.form_order 
+    padding-top: 50rem
+    max-width: 850rem
+    margin: 0 auto
+    > div
+        margin-bottom: 10rem
+    input, textarea
+        width: 100%
+        appearance: none
+        padding: 10rem
+        background: #050505
+        border: 1px solid #5E5E5E
+        line-height: normal
+        font-size: 16rem
+        &:focus
+            border-color: #fff
+    label
+        color: #5E5E5E
+        font-size: 16rem
+    textarea
+        padding: 10rem
+        resize: none
+        min-height: 150rem
+        margin-bottom: 40rem
+
+.review_container
+    padding: 70rem 0
+    .grid
+        padding-bottom: 50rem
+
+.col_3_review
+    +media(768)
+        grid-template-columns: repeat(2, 1fr)
+    +media(1024)
+        grid-template-columns: repeat(3, 1fr)
+.review
+    padding: 40rem 20rem 30rem
+    border: 1px solid #5E5E5E
+    
+.name_block
+    padding-bottom: 10rem
+    h3
+        font-weight: 500
+        text-transform: uppercase
+    p
+        color:#5E5E5E
+        font-size: 16rem
+        font-style: italic
+
+.star_block
+    padding-bottom: 20rem
+
+.review_text
+    font-size: 14rem
+
+.contacts_container
+    svg
+        min-width: 20rem
+    > div
+        min-height: 45vh   
+        max-height: 600rem
+.contacts_img
+    max-height: 600rem
+    picture
+        display: inline-block
+        width: 100%
+        height: 100%
+    img
+        width: 100%
+        height: 100%
+        object-fit: cover
+        object-position: bottom 
+.footer
+    padding-top: 60rem
+.contacts_footer
+    text-align: right
+    font-size: 16rem
+    a
+        font-weight: 400
+        justify-content: flex-end
+        &:last-child
+            display: block
+            padding-top: 10rem
+            text-decoration: underline
+
+.copy
+    padding: 17rem 0
+    font-size: 14rem

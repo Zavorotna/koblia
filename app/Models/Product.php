@@ -48,7 +48,6 @@ class Product extends Model implements HasMedia
         )->withPivot('attribute_id')->withTimestamps();
     }
 
-    // Створення продукту з атрибутами
     public static function createProduct(array $data, array $attributes = []): self
     {
         $product = self::create($data);
@@ -58,7 +57,6 @@ class Product extends Model implements HasMedia
         return $product;
     }
 
-    // Оновлення продукту з атрибутами
     public function updateProduct(array $data, array $attributes = []): self
     {
         $this->update($data);
@@ -68,17 +66,28 @@ class Product extends Model implements HasMedia
         return $this;
     }
 
-    // Синхронізація атрибутів
-    public function syncAttributes(array $attributes)
+    public function syncAttributes(array $attributes): void
     {
         $syncData = [];
-        foreach ($attributes as $attributeId => $valueId) {
-            if ($valueId) {
-                $syncData[$valueId] = ['attribute_id' => $attributeId];
+
+        foreach ($attributes as $attributeId => $value) {
+            if (is_array($value)) {
+                foreach ($value as $valueId) {
+                    $syncData[$valueId] = [
+                        'attribute_id' => $attributeId
+                    ];
+                }
+            }
+            elseif (!empty($value)) {
+                $syncData[$value] = [
+                    'attribute_id' => $attributeId
+                ];
             }
         }
-        $this->attributes()->sync($syncData);
+
+        $this->attributeValues()->sync($syncData);
     }
+
 
     public function addGalleryImages(array $files): void
     {
@@ -87,7 +96,6 @@ class Product extends Model implements HasMedia
         }
     }
 
-    // Отримати всі зображення галереї
     public function getGalleryImages()
     {
         return $this->getMedia('gallery');
@@ -95,12 +103,31 @@ class Product extends Model implements HasMedia
 
     public static function topProducts()
     {
-        return Product::with(['attributes' => function($q) {
-                $q->wherePivot('attribute_id', 13);
-            }, 'media', 'category'])
+        $products = Product::with(['media', 'category'])
             ->where('is_top', true)
             ->latest('id')
             ->get();
-    }   
+
+        foreach ($products as $product) {
+            $product->load(['attributeValues' => function($query) {
+                $query->wherePivot('attribute_id', 13)
+                    ->orWherePivot('attribute_id', 21)
+                    ->with('attribute');
+            }]);
+        }
+
+        return $products;
+    } 
+    
+    public static function getProductWithAttributes($id)
+    {
+        $product = self::with([
+            'media',
+            'category',
+            'attributeValues.attribute'
+        ])->findOrFail($id);
+        
+        return $product;
+    }
 
 }
