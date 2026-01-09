@@ -74,7 +74,7 @@
             <p class="review_text">Ми шукали нешаблонні позиції для винної карти, і це вино ідеально підійшло. Гості відзначають смак та ідеальну збалансованість. Надійний виробник і приємне партнерство. Гості постійно запитували, де ми його взяли. Тепер це наш улюблений виробник.</p>
         </div>
     </div>
-    <div class="flex justify_center items_center gap_20">
+    <div class="btn_block wrapper flex justify_center items_center gap_20">
         <a href="#" class="cta fill_btn">усі відгуки</a>
         <a href="#" class="cta transparent_btn">залишити відгук</a>
     </div>

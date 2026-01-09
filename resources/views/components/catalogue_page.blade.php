@@ -6,7 +6,7 @@
     @endphp
     <figure class="card">
         <figcaption class="pos_r">
-            <a class="mask" href="{{ route('site.product', $p->id) }}"></a>
+            <a class="mask" href="{{ route('site.product', $p->slug) }}"></a>
             <div class="card_block tac">
                 <picture>
                     <img src="{{ $p->getMedia('main')->isNotEmpty() ? $p->getFirstMediaUrl('main') : asset('/img/no-img.png') }}" alt="">

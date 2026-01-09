@@ -62,11 +62,10 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-
 Route::controller(SiteProductController::class)->group(function() {
     Route::get('/', 'index')->name('site.index');
     Route::get('/catalogue', 'catalogue')->name('site.catalogue');
-    Route::get('/product/{id}', 'product')->name('site.product');
+    Route::get('/product/{product}', 'product')->name('site.product');
 });
 
 Route::controller(OrderController::class)->group(function(){

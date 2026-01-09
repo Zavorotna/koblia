@@ -16,16 +16,17 @@ class SiteProductController extends Controller
         return view('site.index', compact('topProducts'));
     }
 
-    public function product($id)
+    public function product(Product $product)
     {
-        $product = Product::getProductWithAttributes($id);
-        
-        $attributes = $product->attributeValues->groupBy(function($value) {
+        $product = Product::getProductWithAttributes($product->id);
+
+        $attributes = $product->attributeValues->groupBy(function ($value) {
             return $value->attribute->name;
         });
-        
+
         return view('site.product', compact('product', 'attributes'));
     }
+
 
     public function catalogue(Request $request)
     {

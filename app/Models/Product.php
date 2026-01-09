@@ -15,6 +15,7 @@ class Product extends Model implements HasMedia
     protected $fillable = [
         'category_id',
         'title',
+        'slug',
         'description',
         'price',
         'saleprice',
@@ -30,14 +31,13 @@ class Product extends Model implements HasMedia
     public function attributes()
     {
         return $this->belongsToMany(
-            AttributeValue::class,  // Переконайтеся, що ця модель існує!
-            'product_attribute_values',  // таблиця зв'язку
+            AttributeValue::class,
+            'product_attribute_values',
             'product_id',
             'value_id'
         )->withPivot('attribute_id')->withTimestamps();
     }
 
-    // Додайте також зв'язок для отримання атрибутів через значення
     public function attributeValues()
     {
         return $this->belongsToMany(
@@ -46,6 +46,10 @@ class Product extends Model implements HasMedia
             'product_id',
             'value_id'
         )->withPivot('attribute_id')->withTimestamps();
+    }
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
     public static function createProduct(array $data, array $attributes = []): self

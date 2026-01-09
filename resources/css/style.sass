@@ -275,21 +275,34 @@ h2
             border-right: 1px solid #5E5E5E
             border-left: 1px solid #5E5E5E
 .adv_col_6
-    grid-template-columns: repeat(6, 1fr)
+    grid-template-columns: repeat(2, 1fr)
+    +media(768)
+        grid-template-columns: repeat(6, 1fr)
 
 .adv_block
     display: flex
     align-items: center
     justify-content: center
+    border-right: 1px solid #5E5E5E
+    border-bottom: 1px solid #5E5E5E
+    +media(768)
+        border-right: none
+        border-bottom: none
+        &:last-child
+            border-right: 1px solid #5E5E5E
     p
         color: #E4AB72
         font-size: 24rem
         text-transform: uppercase
 .col_2
-    grid-template-columns: repeat(2, 1fr)
+    +media(768)
+        grid-template-columns: repeat(2, 1fr)
 
 .about_img_block
     grid-template-columns: 2fr 1fr
+    border-right: 1px solid #5E5E5E
+    +media(768)
+        border-right: none 
     picture
         display: block
         height: 100%
@@ -307,7 +320,7 @@ h2
         margin-bottom: 10rem
 .about_us_text,
 .degustation_text
-    padding: 0 0 0 30rem
+    padding: 30rem
     +media(1920)
         padding: 0 0 0 50rem
 .span_text
@@ -315,13 +328,17 @@ h2
 
 .history_container
     div
-        padding: 70rem 0
+        padding: 30rem
+        +media(768)
+            padding: 70rem 30rem
     p
         margin-bottom: 10rem
 
 .tac
     text-align: center
-
+.video_container
+    video
+        width: 100%
 .information_koblia_container
     img
         max-height: 599rem  
@@ -336,20 +353,26 @@ h2
         list-style: inside
 .philosophi_text,
 .colab_text
-    padding: 0 20rem
+    padding: 20rem
     +media(1920)
-        padding: 0 30rem
+        padding: 30rem
     +media(2200)
-        padding: 0 50rem
-
+        padding: 50rem
+.order_1
+    order: 1
+    +media(768)
+        order: 0
 .colab_block
+    padding: 20rem
     min-height: 599rem
     background: url(../../public/img/bg_blur.jpg) no-repeat center/cover
     h2
         padding-bottom: 0
     p
         margin-bottom: 0
-        max-width: 55%
+        +media(1024)
+            max-width: 55%
+
 
 .events_container
     min-height: 75vh
@@ -458,11 +481,17 @@ h2
     .grid
         padding-bottom: 50rem
 
+.btn_block
+    flex-wrap: wrap
+    +media(475)
+        flex-wrap: nowrap
+
 .col_3_review
     +media(768)
         grid-template-columns: repeat(2, 1fr)
     +media(1024)
         grid-template-columns: repeat(3, 1fr)
+        
 .review
     padding: 40rem 20rem 30rem
     border: 1px solid #5E5E5E
@@ -489,7 +518,14 @@ h2
     > div
         min-height: 45vh   
         max-height: 600rem
+        > div
+            padding: 20rem
+            border-right: none
+            +media(768)
+                border-right: 1px solid #5E5E5E
+
 .contacts_img
+    overflow: hidden
     max-height: 600rem
     picture
         display: inline-block
@@ -500,18 +536,37 @@ h2
         height: 100%
         object-fit: cover
         object-position: bottom 
+
 .footer
     padding-top: 60rem
-.contacts_footer
-    text-align: right
-    font-size: 16rem
-    a
-        font-weight: 400
-        justify-content: flex-end
-        &:last-child
-            display: block
-            padding-top: 10rem
-            text-decoration: underline
+    text-align: center
+    +media(768)
+        text-align: left
+    .flex-between
+        gap: 40rem
+        flex-wrap: wrap
+        +media(768)
+            flex-wrap: nowrap
+        div, nav
+            width: 100%
+            +media(768)
+                width: auto
+        .flex, .flex-between
+            justify-content: center
+            +media(768)
+                justify-content: flex-start
+    .contacts_footer
+        font-size: 16rem
+        +media(768)
+            text-align: right
+        a.flex
+            font-weight: 400
+            +media(768)
+                justify-content: flex-end
+            &:last-child
+                display: block
+                padding-top: 10rem
+                text-decoration: underline
 
 .copy
     padding: 17rem 0

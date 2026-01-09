@@ -44,7 +44,7 @@
                 </div>
             </div>
         </section>
-        <section class="adout_us_container b_bottom b_top" id="about">
+        <section class="adout_us_container b_top b_bottom" id="about">
             <div class="wrapper grid col_2">
                 <div class="about_img_block grid">
                     <picture>
@@ -57,7 +57,7 @@
                         <img src="{{ asset('img/about_3.jpg') }}" alt="">
                     </picture>
                 </div>
-                <div class="about_us_text b_left direction_center">
+                <div class="about_us_text b_left b_right direction_center">
                     <h2>Про нас</h2>
                     <p>У прохолоді старого кам’яного погребу народжується щось більше, ніж вино — народжується історія.</p>
                     <p><span class="span_text">Koblia Vino</span> — крафтове вино з винограду та лохини, створене так, щоб кожен ковток відчувався, як момент, який хочеться запам’ятати.</p>
@@ -107,7 +107,7 @@
             <div class="b_bottom">
                 <div class="wrapper">
                     <div class="grid col_2 b_left b_right">
-                        <div>
+                        <div class="order_1">
                             <picture>
                                 <img src="{{ asset('img/degustation.jpg') }}" alt="">
                             </picture>
