@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
             blackFon = document.querySelector(".black_fon"),
             nav = document.querySelector(".header_nav")
 
-        function cancelBurger(e) {
-            e.preventDefault()
+        function cancelBurger() {
             blackFon.style.display = "none"
             nav.style.left = '-100%'
         }
@@ -16,9 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
             nav.style.left = '0'
         })
 
-        // nav.querySelectorAll('ul li').forEach(item => {
-        //     item.addEventListener("click", cancelBurger)
-        // })
+        nav.querySelectorAll('ul li').forEach(item => {
+            item.addEventListener("click", cancelBurger)
+        })
 
         cancel.addEventListener("click", (e) => {
             e.preventDefault()

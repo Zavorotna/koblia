@@ -1,6 +1,7 @@
 <x-site-layout>
     <x-slot name="main">
         <section class="main_container b_bottom pos_r">
+            <div class="mask_main"></div>
             <div class="wrapper">
                 <div class="main_text b_right">
                     <h1>Koblia Vino</h1>
